@@ -1,0 +1,11 @@
+{
+	"name": "calendarioBot",
+	"version": "0.1",
+	"description": "bot que te dice cuantos dias faltan apra fin de mes",
+	"main": "bot.js",
+	"author": "Sacha",
+	"dependencies": {
+		"discord.js": "^12.2.0",
+		"nodemon": "^2.0.4"
+	}
+}
