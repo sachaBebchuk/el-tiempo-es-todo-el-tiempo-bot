@@ -18,7 +18,7 @@ fs.readFile(dirFrases, (err, data) => {
 
 	frases = JSON.parse(data);
 
-	if(Array.isArray(comandos)){
+	if(!Array.isArray(frases)){
 		frases = [];
 		console.log("No se cargaron frases");
 	}
@@ -36,7 +36,7 @@ function nuevoJoseDelDia(msg){
 			msg.reply("Error al agregar frase");
 		}
 		else{
-			msg.reply("Agrego el jose del dia numero: " + frases.length);
+			msg.reply("Agrego el jose del dia numero: " + (frases.length - 1));
 		}
 	}
 
