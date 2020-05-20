@@ -1,6 +1,8 @@
 # Bot el tiempo es todo el tiempo
  
- Bot que hice para un server con las instrucciones de mari
+ Bot que hice para un server con las instrucciones de Mari.
+
+ ___
 
  **Comandos**: 
 
@@ -17,4 +19,16 @@
  	* .cita: te da un mensaje pineado al azar.
 
 	* cuantos dias faltan: nos dice cuanto falta para fin de mes.
-	
+
+____
+
+
+Necesita tener un archivo aut.json con los siguientes datos del bot en la raiz
+
+    {
+    
+    	"token": "tutokentoken",
+    
+    	"ID": 00000000000000001
+    
+    }

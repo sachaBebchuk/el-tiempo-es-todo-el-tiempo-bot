@@ -11,10 +11,17 @@ fs.readFile(dirFrases, (err, data) => {
 
 	if(err){
 		console.log(err);
+		console.log("No se cargaron frases");
+		frases = [];
 		return;
 	}
 
 	frases = JSON.parse(data);
+
+	if(Array.isArray(comandos)){
+		frases = [];
+		console.log("No se cargaron frases");
+	}
 });
 
 function nuevoJoseDelDia(msg){
