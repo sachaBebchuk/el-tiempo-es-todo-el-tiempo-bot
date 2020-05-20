@@ -1,34 +1,107 @@
-let fs = require('fs');
-
-let nuevoJoseRegex = /(nuevo jose del dia )(.*)/;
-let mateAlJoseRegex = /^(mate al jose )([1-9]*)$/;
+const fs = require('fs');
 
 let dirFrases = "./comandos/data/joseDelDia.json";
-
+let dirUltimoJose = "./comandos/data/ultimoJose.json";
+let joseDeHoy = null;
+let fechaUltimoJose = null;
 let frases;
 
 fs.readFile(dirFrases, (err, data) => {
 
+	let ok = true;
+
 	if(err){
 		console.log(err);
-		console.log("No se cargaron frases");
-		frases = [];
-		return;
+		ok = false;
+	}
+	else{
+
+		frases = JSON.parse(data);
+
+		if(!Array.isArray(frases)){
+			ok = false;
+		}
 	}
 
-	frases = JSON.parse(data);
-
-	if(!Array.isArray(frases)){
-		frases = [];
-		console.log("No se cargaron frases");
+	if(ok){
+		fetchJoseDelDia();
 	}
+	else{
+		
+		frases = [];
+		
+		console.log("No se cargaron frases");
+
+		joseDeHoy = "";
+
+		fechaUltimoJose = Date.now();
+		fechaUltimoJose.setHours(0,0,0,0);
+
+		guardarJoseDeHoy();
+	}
+
 });
 
-function nuevoJoseDelDia(msg){
+function fetchJoseDelDia(){
 
-	let matches = msg.content.match(nuevoJoseRegex);
+	fs.readFile(dirUltimoJose, (err, data) => {
 
-	frases.push(matches[2]);
+		if(err){
+			console.log("No se encontro ultimo jose del dia");
+		}
+		else{
+			let objUltimoJose = JSON.parse(data);
+
+			fechaUltimoJose = objUltimoJose.fechaUltimoJose;
+			joseDeHoy = objUltimoJose.joseDeHoy;
+		}
+
+		actualizarJoseDeHoy();
+	});
+}
+
+function actualizarJoseDeHoy(){
+
+	let hoy = new Date(Date.now());
+	hoy.setHours(0,0,0,0);
+
+	if(hoy == fechaUltimoJose){
+		return;
+	}
+		
+	let fraseIndex;
+	
+	do{
+		fraseIndex = Math.floor(Math.random() * Math.floor(frases.length));
+	}while(joseDeHoy == frases[fraseIndex]);
+
+	joseDeHoy = frases[fraseIndex];
+
+	fechaUltimoJose = hoy;
+
+	console.log("El jose de hoy es: " + joseDeHoy);
+
+	guardarJoseDeHoy();
+
+}
+
+function guardarJoseDeHoy(){
+
+	let dataJoseDeHoy = {
+		"fechaUltimoJose": fechaUltimoJose,
+		"joseDeHoy": joseDeHoy
+	};
+
+	fs.writeFile(dirUltimoJose, JSON.stringify(dataJoseDeHoy), err => {
+		if(err){
+			console.log("Error al guardar jose de hoy");
+		}
+	});
+}
+
+function nuevoJoseDelDia(msg,match){
+
+	frases.push(match[1]);
 
 	let callback = function(err){
 		if(err){
@@ -44,11 +117,7 @@ function nuevoJoseDelDia(msg){
 }
 
 function joseDelDia(msg){
-
-	let fraseIndex = Math.floor(Math.random() * Math.floor(frases.length));
-	let frase = frases[fraseIndex];
-
-	msg.reply("el jose del dia es: \n" + frase);
+	msg.reply("el jose del dia es: \n" + joseDeHoy);
 }
 
 function todosLosJoseses(msg){
@@ -69,11 +138,9 @@ function todosLosJoseses(msg){
 	msg.reply(respuesta);
 }
 
-function mateAlJose(msg){
+function mateAlJose(msg,match){
 
-	let matches = msg.content.match(mateAlJoseRegex);
-
-	let indexAMatar = parseInt(matches[2]);
+	let indexAMatar = parseInt(match[1]);
 
 	if(indexAMatar < 0 || indexAMatar >= frases.length){
 
@@ -113,23 +180,23 @@ function guardarFrases(callback){
 
 module.exports = [
 	{
-		regex: nuevoJoseRegex,
-		titulo: "nuevo jose del dia",
+		regex:    /^nuevo jose del dia (.*)$/,
+		titulo:   "nuevo jose del dia",
 		response: nuevoJoseDelDia
 	},
 	{
-		regex: /^deme el jose del dia$/,
-		titulo: "jose del dia",
+		regex:    /^deme el jose del dia$/,
+		titulo:   "jose del dia",
 		response: joseDelDia
 	},
 	{
-		regex: /^deme todos los joseses de los dias$/,
-		titulo: "todos los joseses",
+		regex:    /^deme todos los joseses de los dias$/,
+		titulo:   "todos los joseses",
 		response: todosLosJoseses
 	},
 	{
-		regex: mateAlJoseRegex,
-		titulo: "mate al jose",
+		regex:    /^mate al jose ([1-9]*)$/,
+		titulo:   "mate al jose",
 		response: mateAlJose
 	}
 ];
