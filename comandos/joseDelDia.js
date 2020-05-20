@@ -52,7 +52,7 @@ function fetchJoseDelDia(){
 		else{
 			let objUltimoJose = JSON.parse(data);
 
-			fechaUltimoJose = objUltimoJose.fechaUltimoJose;
+			fechaUltimoJose = new Date(objUltimoJose.fechaUltimoJose);
 			joseDeHoy = objUltimoJose.joseDeHoy;
 		}
 
@@ -65,7 +65,7 @@ function actualizarJoseDeHoy(){
 	let hoy = new Date(Date.now());
 	hoy.setHours(0,0,0,0);
 
-	if(hoy == fechaUltimoJose){
+	if(hoy.getTime() == fechaUltimoJose.getTime()){
 		return;
 	}
 		

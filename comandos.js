@@ -48,7 +48,9 @@ function handlerMensaje(msg){
 		return;
 	}
 
-	console.log("Recibido mensaje de: [" + msg.author.username + "] que dice : [" + msg.content + "]");
+	let d = new Date(Date.now());
+
+	console.log("["+d.toLocaleString()+"]Recibido mensaje de: [" + msg.author.username + "] que dice : [" + msg.content + "]");
 
 	commandArray.forEach( comando => evaluarComando(comando,msg));
 
