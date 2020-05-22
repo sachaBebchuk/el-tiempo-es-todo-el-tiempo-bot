@@ -20,6 +20,10 @@
 
 	* cuantos dias faltan: nos dice cuanto falta para fin de mes.
 
+	* mande a cagar a <@!snowflake>: manda a cagar a la persona mencionada
+
+	* congratule | felicite a <@!snowflake> <felicitacion>: felicita a la persona mencionada
+
 ____
 
 

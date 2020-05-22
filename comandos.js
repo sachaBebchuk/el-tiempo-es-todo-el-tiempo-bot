@@ -64,7 +64,7 @@ function evaluarComando(comando,msg){
 		return;
 	}
 
-	console.log("\tRespondiendo al mensaje con el comando " + comando.titulo + "\n");
+	console.log("\tRespondiendo al mensaje con el comando " + comando.titulo);
 
 	comando.response(msg,match);
 }

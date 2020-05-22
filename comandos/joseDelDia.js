@@ -117,6 +117,9 @@ function nuevoJoseDelDia(msg,match){
 }
 
 function joseDelDia(msg){
+
+	actualizarJoseDeHoy();
+	
 	msg.reply("el jose del dia es: \n" + joseDeHoy);
 }
 
