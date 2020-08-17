@@ -101,7 +101,7 @@ function guardarJoseDeHoy(){
 
 function nuevoJoseDelDia(msg,match){
 
-	frases.push(match[1]);
+	frases.push(match[0].replace(match[1],""));
 
 	let callback = function(err){
 		if(err){
@@ -183,7 +183,7 @@ function guardarFrases(callback){
 
 module.exports = [
 	{
-		regex:    /^nuevo jose del dia (.*)$/,
+		regex:    /^(nuevo jose del dia )(.)*/,
 		titulo:   "nuevo jose del dia",
 		response: nuevoJoseDelDia
 	},

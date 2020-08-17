@@ -1,0 +1,37 @@
+body{
+	background-color: rgb(10,10,20);
+	color: rgb(150,50,50);
+	font-family: consolas;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#servers{
+	background-color: rgb(32,32,32);
+	padding: 15px;
+	border-radius: 15px;
+	display: inline-block;
+}
+
+.aviso{
+	padding: 3px;
+	padding-left: 10px;
+	color: rgb(50,150,50);
+	background-color: rgb(25,50,25);
+	margin-bottom: 3px;
+	animation-delay: 0.2s;
+	width: 0;
+	animation-duration: 0.5s;
+	animation-name: aviso;
+	animation-fill-mode: forwards;
+}
+
+@keyframes aviso
+{
+	0%{
+		width: 0vw;
+	}
+	100%{
+		width: 20vw;
+	}
+}

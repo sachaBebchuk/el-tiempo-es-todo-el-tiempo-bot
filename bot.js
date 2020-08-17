@@ -12,3 +12,8 @@ client.on('ready', () => {
 client.on('message', comandos.handlerMensaje);
 
 client.login(auth.token);
+
+module.exports = {
+	"bot":      client,
+	"comandos": comandos
+}

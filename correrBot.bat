@@ -1,1 +1,1 @@
-nodemon bot.js
+node main.js

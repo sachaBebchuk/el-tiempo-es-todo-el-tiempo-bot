@@ -35,6 +35,11 @@
 		"respuesta":"nice"
 	},
 	{
+		"regex": "420\\b",
+		"titulo": "420",
+		"respuesta":"blaze it"
+	},
+	{
 		"regex": "\\b((tengo hambre)|(que hambre)|(me quede con hambre))\\b",
 		"titulo": "comete esta",
 		"respuesta":"comete esta"

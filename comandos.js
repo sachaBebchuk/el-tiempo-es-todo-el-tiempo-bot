@@ -1,5 +1,6 @@
-const fs   = require('fs');
-const auth = require("./auth.json");
+const fs        = require('fs');
+const auth      = require("./auth.json");
+const excluidos = require("./comandos/data/excluidos.json");
 
 let comandosDir = './comandos/';
 let files = fs.readdirSync(comandosDir);
@@ -28,18 +29,30 @@ files.forEach( file => {
 });
 
 function cargarComando(comando){
-	
+
+	let logLine = ("\tcarngado comando " + comando.titulo + "...").padEnd("60"," ");
+
 	if(comando == undefined ||
 	   comando.titulo == undefined ||
 	   comando.regex == undefined ||
 	   comando.response == undefined){
 
-	   	console.log("\tcomando "+ comando.titulo + "... error");
+	   	console.log(logLine + "error");
 
 		return;
 	}
+
+	for(var i = 0; i < excluidos.length; i++){
+		if(excluidos[i] == comando.titulo){
+	
+			console.log(logLine + "excluido");
+
+			return;
+		}
+	}
+
 	commandArray.push(comando);
-	console.log("\tcomando "+ comando.titulo + "... ok");
+	console.log(logLine + "ok");
 }
 
 function handlerMensaje(msg){
